@@ -1,30 +1,80 @@
-let contain = document.querySelector('.contain')
-const displayTestimonial =()=>{
-    contain.innerHTML= ` <div class="card p-3">
-    <div class="image">
-        <img src="" alt="">
-    </div>
-    <div class="card-text">
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto distinctio numquam eos quas quidem id ratione nisi at excepturi possimus!</p>
-        <div class="play">
-            <div class="btn btn-outline-success">play audio</div>
-        </div>
-    </div>
-    <div class="card-btn d-flex justify-content-between">
-        <button class="btn">prev</button>
-        <button class="btn">Next</button>
-    </div>
-</div>`
-}
+let contain =document.querySelector('.contain')
+let prev = document.querySelector('.btn-prev')
+let next = document.querySelector('.btn-next')
+let apiData = 0
 
 
 
-let endpoint = 'https://testimonialapi.toolcarton.com/api'
+let endpoint ='https://testimonialapi.toolcarton.com/api'
 fetch(endpoint)
 .then((response)=>{
-    return response.json()
+    return response.json();
 })
 .then((data)=>{
-    console.log(data);
-    displayTestimonial(data)
+    const displayTestimonial=()=>{
+        let result = ` <div class="card p-3">
+        <div class="image d-flex justify-content-between">
+            <div><img src="${data[apiData].avatar}" alt=""></div>
+            <div class="profile">
+            <h3>${data[apiData].name}</h3>
+            <h4>${data[apiData].designation}</h4>
+            <h5>${data[apiData].location}</h5>
+            <h6>Rating: ${data[apiData].rating}</h6>
+        </div>
+        </div>
+        <div class="card-text">
+            <p>${data[apiData].message}</p>
+            <div class="play">
+                <button class="btn btn-outline-success"> src="${data[apiData].audio}" >Play Audio</button>
+            </div>
+        </div>
+    </div>`    
+    return result;
+    }
+    
+
+    let audio = document.querySelector('.play')
+    audio.src = '${data[apiData].audio}'
+    
+    let display = displayTestimonial();
+    contain.innerHTML = display
+
+
+
+
+    next.addEventListener("click", (e) => {
+        e.preventDefault();
+        // next.disabled = false;
+        if (apiData >= 0 && data[apiData].id <= data.length - 1) {
+          apiData++;
+          displayTestimonial();
+          let display = displayTestimonial();
+          contain.innerHTML = display
+          console.log(data[apiData].id);
+        }
+      });
 })
+
+prev.addEventListener("click", (e) => {
+        e.preventDefault();
+        // next.disabled = false;
+        if (apiData = 0) {
+          apiData--;
+          displayTestimonial();
+          let display = displayTestimonial();
+          contain.innerHTML = display
+          console.log(data[apiData].id);
+        }
+      });
+
+
+
+
+      let x = document.getElementById("myAudio"); 
+      
+      function playAudio() { 
+        x.play(); 
+      } 
+      
+
+

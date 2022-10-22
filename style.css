@@ -1,13 +1,18 @@
 .contain{
     width: 400px;
-    margin: 200px;
+    margin: 150px auto 0 auto;
 }
+
 .image img{
     width: 100px;
     height: 100px;
     border-radius: 50%;
 }
 
-.play{
+.play button{
     width: 100%;
+}
+.contain-btn{
+    width: 400px;
+    margin: 0 auto;
 }
